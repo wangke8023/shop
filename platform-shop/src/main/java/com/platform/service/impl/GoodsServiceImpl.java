@@ -1,5 +1,7 @@
 package com.platform.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.DataFilter;
 import com.platform.dao.GoodsAttributeDao;
 import com.platform.dao.GoodsDao;
@@ -180,28 +182,46 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int enSale(Integer id) {
+    public int enSale(String ids) {
         SysUserEntity user = ShiroUtils.getUserEntity();
-        GoodsEntity goodsEntity = queryObject(id);
-        if (1 == goodsEntity.getIsOnSale()) {
-            throw new RRException("此商品已处于上架状态！");
-        }
-        goodsEntity.setIsOnSale(1);
-        goodsEntity.setUpdateUserId(user.getUserId());
-        goodsEntity.setUpdateTime(new Date());
-        return goodsDao.update(goodsEntity);
+	    JSONArray idArray = JSONObject.parseArray(ids);
+	    int result = 0;
+	    for (Object o : idArray) {
+		    Integer id = Integer.valueOf((String) o);
+		    GoodsEntity goodsEntity = queryObject(id);
+		    if (1 == goodsEntity.getIsOnSale()) {
+			    continue;
+			    //throw new RRException("此商品已处于上架状态！");
+		    }
+		    goodsEntity.setIsOnSale(1);
+		    goodsEntity.setUpdateUserId(user.getUserId());
+		    goodsEntity.setUpdateTime(new Date());
+		    goodsDao.update(goodsEntity);
+		    result ++;
+	    }
+        
+        return result;
     }
 
     @Override
-    public int unSale(Integer id) {
-        SysUserEntity user = ShiroUtils.getUserEntity();
-        GoodsEntity goodsEntity = queryObject(id);
-        if (0 == goodsEntity.getIsOnSale()) {
-            throw new RRException("此商品已处于下架状态！");
-        }
-        goodsEntity.setIsOnSale(0);
-        goodsEntity.setUpdateUserId(user.getUserId());
-        goodsEntity.setUpdateTime(new Date());
-        return goodsDao.update(goodsEntity);
+    public int unSale(String ids) {
+	    SysUserEntity user = ShiroUtils.getUserEntity();
+	    JSONArray idArray = JSONObject.parseArray(ids);
+	    int result = 0;
+	    for (Object o : idArray) {
+		    Integer id = Integer.valueOf((String) o);
+		    GoodsEntity goodsEntity = queryObject(id);
+		    if (0 == goodsEntity.getIsOnSale()) {
+		    	continue;
+			    //throw new RRException("此商品已处于下架状态！");
+		    }
+		    goodsEntity.setIsOnSale(0);
+		    goodsEntity.setUpdateUserId(user.getUserId());
+		    goodsEntity.setUpdateTime(new Date());
+		    goodsDao.update(goodsEntity);
+		    result++;
+		     
+	    }
+	    return result;
     }
 }

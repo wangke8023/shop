@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>51软件工作室综合管理平台</title>
+    <title>商城综合管理平台</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="shortcut icon" href="statics/img/favicon.ico" type="image/x-icon">
@@ -43,7 +43,7 @@
                          style="text-align: center;font-size: 18px;font-weight: 600;color: white;">
                         综合管理平台
                     </div>
-                    <div class="logo-element">大平台
+                    <div class="logo-element">菜单
                     </div>
                 </li>
                 <menu-item :item="item" v-for="item in menuList"></menu-item>
@@ -69,12 +69,15 @@
                     <li class="dropdown">
                         <a href="javascript:;" @click="toggleFullScreen"><i class="fa fa-arrows-alt"></i> &nbsp;全屏</a>
                     </li>
-                    <!--<li><a href="javascript:;" @click="updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a></li>-->
                     <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" aria-expanded="false">
                             <i class="fa fa-tasks"></i> 主题
                         </a>
                     </li>
+                    <li><a ><i class="fa fa-user-circle-o" ></i><span id ="index_userName"></span></a></li>
+
+                    <li><a href="javascript:;" @click="updatePassword"><i class="fa fa-lock"></i> 修改密码</a></li>
+                   
                     <li><a @click="logout"><i class="fa fa fa-sign-out"></i>退出</a></li>
                 </ul>
             </nav>
@@ -108,7 +111,7 @@
                     data-id="main" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 2018~2020 <a href="http://shop.xfshequ.cn/" target="_blank">上海51软件工作室</a>
+            <div class="pull-right">&copy; 2018~2020 <a href="http://shop.xfshequ.cn/" target="_blank">WWL工作室</a>
             </div>
         </div>
     </div>
@@ -313,6 +316,7 @@
             getUser: function () {
                 $.getJSON("sys/user/info?_" + $.now(), function (r) {
                     vm.user = r.user;
+                    $('#index_userName').text(vm.user.username);
                 });
             },
             updatePassword: function () {

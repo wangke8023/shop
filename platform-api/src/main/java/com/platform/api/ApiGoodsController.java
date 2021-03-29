@@ -184,9 +184,7 @@ public class ApiGoodsController extends ApiBaseAction {
             @ApiImplicitParam(name = "referrer", value = "商品referrer", paramType = "path", required = false)})
     @GetMapping(value = "detail")
     public Object detail(Integer id, Long referrer) {
-//    	System.out.println("1111111111111111111111111111111");
         Map<String, Object> resultObj = new HashMap();
-        //
         Long userId = getUserId();
         //MlsUserEntity2 loginUser = mlsUserSer.getEntityMapper().findByUserId(userId);
         GoodsVo info = goodsService.queryObject(id);
@@ -1009,7 +1007,7 @@ public class ApiGoodsController extends ApiBaseAction {
     /**
      * 上传商品图片
      */
-    @ApiOperation(value = "上传商品图片")
+    @ApiOperation(value = "上传商品图片",httpMethod = "POST")
     @RequestMapping("uploadImage")
     public String uploadImage(@RequestParam("file") MultipartFile file, String imageType) {
     	System.out.println("==========");
@@ -1034,7 +1032,7 @@ public class ApiGoodsController extends ApiBaseAction {
     /**
      * app新增商品
      */
-    @ApiOperation(value = "app新增商品")
+    @ApiOperation(value = "app新增商品",httpMethod = "POST")
     @RequestMapping("appAdd")
     public Object appAdd(@RequestParam String goodsname, @RequestParam String imageUrl, @RequestParam String imageUrl2) {
     	System.out.println(goodsname);

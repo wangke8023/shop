@@ -105,7 +105,8 @@ var vm = new Vue({
             parentId: 0,
             type: 1,
             orderNum: 0,
-            status: 0
+            status: 0,
+            role:5
         },
         q: {
             menuName: '',
@@ -114,6 +115,9 @@ var vm = new Vue({
         ruleValidate: {
             name: [
                 {required: true, message: '菜单名称不能为空', trigger: 'blur'}
+            ],
+            role: [
+                {required: true, message: '用户角色不能为空', trigger: 'blur'}
             ],
             url: [
                 {required: true, message: '菜单url不能为空', trigger: 'blur'}

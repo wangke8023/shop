@@ -3,6 +3,8 @@ package com.platform.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.entity.SysUserEntity;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.platform.entity.FootprintEntity;
 import com.platform.entity.UserCouponEntity;
 import com.platform.service.FootprintService;
-import com.platform.utils.Base64;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
 
 
 /**
@@ -37,9 +35,12 @@ public class FootprintController {
     @RequestMapping("/list")
     @RequiresPermissions("footprint:list")
     public R list(@RequestParam Map<String, Object> params) {
-        //查询列表数据
+	    SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
+	    //查询列表数据
         Query query = new Query(params);
-
+	    if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))) {
+		    query.put("merchantId", sysUserEntity.getMerchantId());
+	    }
         List<FootprintEntity> footprintList = footprintService.queryList(query);
         int total = footprintService.queryTotal(query);
         for(FootprintEntity user : footprintList) {

@@ -3,6 +3,8 @@ package com.platform.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.entity.SysUserEntity;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.platform.entity.GoodsSpecificationEntity;
 import com.platform.service.GoodsSpecificationService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
-import com.platform.utils.ShiroUtils;
 
 /**
  * 商品对应规格表值表Controller
@@ -37,8 +35,12 @@ public class GoodsSpecificationController {
     @RequestMapping("/list")
     @RequiresPermissions("goodsspecification:list")
     public R list(@RequestParam Map<String, Object> params) {
-        //查询列表数据
-    	params.put("merchantId", ShiroUtils.getUserEntity().getMerchantId());
+	    SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
+
+	    //查询列表数据
+	    if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))){
+		    params.put("merchantId",sysUserEntity.getMerchantId());
+	    }
         Query query = new Query(params);
 
         List<GoodsSpecificationEntity> goodsSpecificationList = goodsSpecificationService.queryList(query);

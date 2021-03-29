@@ -3,6 +3,8 @@ package com.platform.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.entity.SysUserEntity;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.platform.entity.SearchHistoryEntity;
 import com.platform.service.SearchHistoryService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
 
 
 /**
@@ -37,8 +36,14 @@ public class SearchHistoryController {
     public R list(@RequestParam Map<String, Object> params) {
         //查询列表数据
         Query query = new Query(params);
-
+	    SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
+	    if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))) {
+		    query.put("merchantId", sysUserEntity.getMerchantId());
+	    }
         List<SearchHistoryEntity> searchHistoryList = searchHistoryService.queryList(query);
+	    for (SearchHistoryEntity searchHistoryEntity : searchHistoryList) {
+		    searchHistoryEntity.setUserName(Base64.decode(searchHistoryEntity.getUserName()));
+	    }
         int total = searchHistoryService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(searchHistoryList, total, query.getLimit(), query.getPage());

@@ -2,7 +2,10 @@ package com.platform.controller;
 
 import com.platform.annotation.SysLog;
 import com.platform.entity.SysMenuEntity;
+import com.platform.entity.SysRoleMenuEntity;
+
 import com.platform.service.SysMenuService;
+import com.platform.service.SysRoleMenuService;
 import com.platform.utils.*;
 import com.platform.utils.Constant.MenuType;
 import org.apache.commons.lang.StringUtils;
@@ -10,6 +13,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +30,8 @@ import java.util.Map;
 public class SysMenuController extends AbstractController {
     @Autowired
     private SysMenuService sysMenuService;
-
+	@Autowired
+	private SysRoleMenuService sysRoleMenuService;
     /**
      * 所有菜单列表
      */
@@ -112,9 +117,12 @@ public class SysMenuController extends AbstractController {
     public R save(@RequestBody SysMenuEntity menu) {
         //数据校验
         verifyForm(menu);
-
-        sysMenuService.save(menu);
-
+	    sysMenuService.save(menu);
+	    //修改菜单权限
+	    SysRoleMenuEntity sysRoleMenuEntity = new SysRoleMenuEntity();
+	    sysRoleMenuEntity.setMenuId(menu.getMenuId());
+	    sysRoleMenuEntity.setRoleId(menu.getRole());
+	    sysRoleMenuService.save(sysRoleMenuEntity);
         return R.ok();
     }
 
@@ -127,8 +135,12 @@ public class SysMenuController extends AbstractController {
     public R update(@RequestBody SysMenuEntity menu) {
         //数据校验
         verifyForm(menu);
-
         sysMenuService.update(menu);
+		//修改菜单权限
+	    SysRoleMenuEntity sysRoleMenuEntity = new SysRoleMenuEntity();
+	    sysRoleMenuEntity.setMenuId(menu.getMenuId());
+	    sysRoleMenuEntity.setRoleId(menu.getRole());
+	    sysRoleMenuService.update(sysRoleMenuEntity);
 
         return R.ok();
     }

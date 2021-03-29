@@ -2,10 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.FeedbackEntity;
 import com.platform.service.FeedbackService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
-import com.platform.utils.ShiroUtils;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +33,9 @@ public class FeedbackController {
         Query query = new Query(params);
         query.put("merchant_id", ShiroUtils.getUserEntity().getMerchantId());
         List<FeedbackEntity> feedbackList = feedbackService.queryList(query);
+	    for (FeedbackEntity feedbackEntity : feedbackList) {
+		    feedbackEntity.setUserName(Base64.decode(feedbackEntity.getUserName()));
+	    }
         int total = feedbackService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(feedbackList, total, query.getLimit(), query.getPage());

@@ -81,16 +81,16 @@ public interface GoodsService {
     /**
      * 上架
      *
-     * @param id
+     * @param ids
      * @return
      */
-    int enSale(Integer id);
+    int enSale(String ids);
 
     /**
      * 下架
      *
-     * @param id
+     * @param ids
      * @return
      */
-    int unSale(Integer id);
+    int unSale(String ids);
 }

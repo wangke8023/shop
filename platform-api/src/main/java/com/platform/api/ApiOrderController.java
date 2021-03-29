@@ -58,7 +58,7 @@ public class ApiOrderController extends ApiBaseAction {
     /**
      * 获取订单列表
      */
-    @ApiOperation(value = "获取订单列表")
+    @ApiOperation(value = "获取订单列表",httpMethod = "GET")
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser, Integer order_status,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -172,8 +172,8 @@ public class ApiOrderController extends ApiBaseAction {
     /**
      * 获取订单列表
      */
-    @ApiOperation(value = "取消订单")
-    @RequestMapping("cancelOrder")
+    @ApiOperation(value = "取消订单",httpMethod = "GET")
+    @GetMapping("cancelOrder")
     public Object cancelOrder(Integer orderId) {
         try {
             OrderVo orderVo = orderService.queryObject(orderId);
@@ -234,7 +234,7 @@ public class ApiOrderController extends ApiBaseAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return toResponsSuccess("提交失败");
+        return toResponsSuccess("提交成功");
     }
     
 
@@ -242,7 +242,7 @@ public class ApiOrderController extends ApiBaseAction {
     /**
      * 确认收货
      */
-    @ApiOperation(value = "确认收货")
+    @ApiOperation(value = "确认收货",httpMethod = "GET")
     @RequestMapping("confirmOrder")
     public Object confirmOrder(Integer orderId) {
         try {

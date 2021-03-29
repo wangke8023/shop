@@ -34,7 +34,9 @@ public class CartController {
 		//查询列表数据
 		SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
 		Query query = new Query(params);
-		query.put("merchantId",sysUserEntity.getMerchantId());
+		if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))){
+			query.put("merchantId",sysUserEntity.getMerchantId());
+		}
 		List<CartEntity> cartList = cartService.queryList(query);
 		int total = cartService.queryTotal(query);
 		for(CartEntity user : cartList) {

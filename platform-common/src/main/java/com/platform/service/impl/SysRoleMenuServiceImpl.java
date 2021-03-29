@@ -1,6 +1,8 @@
 package com.platform.service.impl;
 
 import com.platform.dao.SysRoleMenuDao;
+import com.platform.entity.SysMenuEntity;
+import com.platform.entity.SysRoleMenuEntity;
 import com.platform.service.SysRoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +45,15 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
     public List<Long> queryMenuIdList(Long roleId) {
         return sysRoleMenuDao.queryMenuIdList(roleId);
     }
+
+	@Override
+	public void update(SysRoleMenuEntity sysMenuEntity) {
+		sysRoleMenuDao.update(sysMenuEntity);
+	}
+
+	@Override
+	public void save(SysRoleMenuEntity sysMenuEntity) {
+		sysRoleMenuDao.saveOne(sysMenuEntity);
+	}
 
 }

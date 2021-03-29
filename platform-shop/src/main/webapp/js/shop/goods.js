@@ -4,6 +4,7 @@ $(function () {
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
             {label: '商品类型', name: 'categoryName', index: 'category_id', width: 80},
+            {label: '销售类型', name: 'isSecKill', index: 'is_secKill', width: 80},
             {label: '名称', name: 'name', index: 'name', width: 160},
             {label: '品牌', name: 'brandName', index: 'brand_id', width: 120},
             {
@@ -211,7 +212,7 @@ var vm = new Vue({
             });
         },
         enSale: function () {
-            var id = getSelectedRow("#jqGrid");
+            var id = getSelectedRows("#jqGrid");
             if (id == null) {
                 return;
             }
@@ -253,7 +254,7 @@ var vm = new Vue({
             });
         },
         unSale: function () {
-            var id = getSelectedRow("#jqGrid");
+            var id = getSelectedRows("#jqGrid");
             if (id == null) {
                 return;
             }

@@ -12,6 +12,10 @@ public class Constant {
      * 超级管理员ID
      */
     public static final int SUPER_ADMIN = 1;
+	/**
+	 * 超级管理员角色ID
+	 */
+	public static final Long SUPER_ROLE = 5L;
 
     /**
      * ORACLE、MYSQL

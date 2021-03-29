@@ -170,7 +170,9 @@ public class ApiCommentController extends ApiBaseAction {
         //
         for (CommentVo commentItem : commentList) {
             commentItem.setContent(Base64.decode(commentItem.getContent()));
-            commentItem.setUser_info(userService.queryObject(commentItem.getUser_id()));
+	        UserVo userVo = userService.queryObject(commentItem.getUser_id());
+	        userVo.setNickname(Base64.decode(userVo.getNickname()));
+	        commentItem.setUser_info(userVo);
 
             Map paramPicture = new HashMap();
             paramPicture.put("comment_id", commentItem.getId());

@@ -42,6 +42,10 @@ public class SysMenuEntity extends Tree {
      * 类型     0：目录   1：菜单   2：按钮
      */
     private Integer type;
+	/**
+	 * 菜单权限所需角色  5：超级管理员 6：商户
+	 */
+	private Long role;
 
     /**
      * 菜单图标
@@ -187,4 +191,12 @@ public class SysMenuEntity extends Tree {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+	public Long getRole() {
+		return role;
+	}
+
+	public void setRole(Long role) {
+		this.role = role;
+	}
 }

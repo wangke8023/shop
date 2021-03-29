@@ -3,9 +3,11 @@ package com.platform.shiro;
 import com.platform.cache.J2CacheUtils;
 import com.platform.dao.SysMenuDao;
 import com.platform.dao.SysUserDao;
+import com.platform.dao.SysUserRoleDao;
 import com.platform.entity.SysMenuEntity;
 import com.platform.entity.SysUserEntity;
 import com.platform.utils.Constant;
+import com.platform.utils.SpringContextUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -83,7 +85,10 @@ public class UserRealm extends AuthorizingRealm {
         if (user.getStatus() == 0) {
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
-
+        //查询用户角色
+	    SysUserRoleDao sysUserRoleDao = (SysUserRoleDao) SpringContextUtils.getBean("sysUserRoleDao");
+	    List<Long> roleIdList = sysUserRoleDao.queryRoleIdList(user.getUserId());
+	    user.setRoleIdList(roleIdList);
         // 把当前用户放入到session中
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession(true);

@@ -4,6 +4,7 @@ import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.SysSmsLogEntity;
 import com.platform.service.SysSmsLogService;
 import com.platform.utils.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,7 @@ public class ApiSmsController {
      * @return R
      */
     @IgnoreAuth
+    @ApiOperation(value = "发送短信",httpMethod = "POST")
     @RequestMapping("/sendSms")
     public R sendSms(HttpServletRequest request, @RequestParam Map<String, String> params) {
         SysSmsLogEntity smsLog = new SysSmsLogEntity();

@@ -33,7 +33,9 @@ public class UserCouponController {
         //查询列表数据
         SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
         Query query = new Query(params);
-        query.put("merchantId",sysUserEntity.getMerchantId());
+	    if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))) {
+		    query.put("merchantId", sysUserEntity.getMerchantId());
+	    }
         List<UserCouponEntity> userCouponList = userCouponService.queryList(query);
         int total = userCouponService.queryTotal(query);
         for(UserCouponEntity user : userCouponList) {

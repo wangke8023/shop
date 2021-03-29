@@ -153,7 +153,7 @@ public class ApiUserController extends ApiBaseAction {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation(value = "我的推荐人")
+	@ApiOperation(value = "我的推荐人",httpMethod = "GET")
 	@RequestMapping("getFUser")
 	public Object getFUser(@LoginUser UserVo loginUser) {
 		MlsUserEntity2 mlsUser= new MlsUserEntity2();
@@ -176,7 +176,7 @@ public class ApiUserController extends ApiBaseAction {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation(value = "我的粉丝")
+	@ApiOperation(value = "我的粉丝",httpMethod = "GET")
 	@RequestMapping("getSonUser")
 	public Object getSonUser(@LoginUser UserVo loginUser) {
 		MlsUserEntity2 mlsUser= new MlsUserEntity2();
@@ -202,7 +202,7 @@ public class ApiUserController extends ApiBaseAction {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation(value = "总佣金 可提现金额")
+	@ApiOperation(value = "总佣金 可提现金额",httpMethod = "GET")
 	@RequestMapping("getMlsUser")
 	public Object getMlsUser(@LoginUser UserVo loginUser) {
 		MlsUserEntity2 mlsUser= new MlsUserEntity2();
@@ -222,7 +222,7 @@ public class ApiUserController extends ApiBaseAction {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation(value = "分享历史")
+	@ApiOperation(value = "分享历史",httpMethod = "GET")
 	@RequestMapping("insShareGoods")
 	public Object insShareGoods(@LoginUser UserVo loginUser,UserGoods userGoods) {
 		userGoods.setUserId(loginUser.getUserId());
@@ -239,7 +239,7 @@ public class ApiUserController extends ApiBaseAction {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation(value = "取当前用户分享历史")
+	@ApiOperation(value = "取当前用户分享历史",httpMethod = "GET")
 	@RequestMapping("getShareGoods")
 	public Object getShareGoods(@LoginUser UserVo loginUser) {
 		return toResponsSuccess(mlsUserSer.getEntityMapper().getUserGoods(loginUser.getUserId()));

@@ -4,10 +4,10 @@
 <mapper namespace="com.platform.dao.SysMenuDao">
 
     <select id="queryObject" resultType="com.platform.entity.SysMenuEntity">
-		select * from sys_menu where menu_id = #{value}
+		select s.*,m.role_id as role from sys_menu s left join shop.sys_role_menu m on  m.menu_id=s.menu_id where s.menu_id = #{value}  
 	</select>
 
-    <insert id="save" parameterType="com.platform.entity.SysMenuEntity">
+    <insert id="save" parameterType="com.platform.entity.SysMenuEntity" useGeneratedKeys="true" keyProperty="menuId" >
 		insert into sys_menu
 		(
 			`menu_id`, 
@@ -102,8 +102,7 @@
         delete from sys_menu where menu_id in
         <foreach item="menuId" collection="array" open="(" separator="," close=")">
             #{menuId}
-        </foreach>
-        ;
+        </foreach>;
         delete from sys_role_menu where menu_id in
         <foreach item="menuId" collection="array" open="(" separator="," close=")">
             #{menuId}

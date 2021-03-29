@@ -52,7 +52,7 @@
 	        	/login.html=anon
 	        	/sys/login=anon
 	        	/captcha.jpg=anon
-	        	/**=authc
+	        	/**=user
 	        </value>
 	    </property>
 	</bean>

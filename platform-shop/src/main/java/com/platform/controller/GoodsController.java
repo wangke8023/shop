@@ -3,10 +3,7 @@ package com.platform.controller;
 import com.platform.entity.GoodsEntity;
 import com.platform.entity.SysUserEntity;
 import com.platform.service.GoodsService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
-import com.platform.utils.ShiroUtils;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +33,9 @@ public class GoodsController {
         SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
         //查询列表数据
         Query query = new Query(params);
-        query.put("merchantId",sysUserEntity.getMerchantId());
+        if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))){
+	        query.put("merchantId",sysUserEntity.getMerchantId());
+        }
         query.put("isDelete", 0);
         List<GoodsEntity> goodsList = goodsService.queryList(query);
         int total = goodsService.queryTotal(query);
@@ -117,7 +116,9 @@ public class GoodsController {
         //查询列表数据
         SysUserEntity sysUserEntity= ShiroUtils.getUserEntity();
         Query query = new Query(params);
-        query.put("merchantId",sysUserEntity.getMerchantId());
+	    if(!(sysUserEntity.getRoleIdList().contains(Constant.SUPER_ROLE))){
+		    query.put("merchantId",sysUserEntity.getMerchantId());
+	    }
         query.put("isDelete", 1);
         List<GoodsEntity> goodsList = goodsService.queryList(query);
 
@@ -154,8 +155,8 @@ public class GoodsController {
      * 上架
      */
     @RequestMapping("/enSale")
-    public R enSale(@RequestBody Integer id) {
-        goodsService.enSale(id);
+    public R enSale(@RequestBody String ids) {
+        goodsService.enSale(ids);
 
         return R.ok();
     }
@@ -164,9 +165,8 @@ public class GoodsController {
      * 下架
      */
     @RequestMapping("/unSale")
-    public R unSale(@RequestBody Integer id) {
-        goodsService.unSale(id);
-
+    public R unSale(@RequestBody String ids) {
+        goodsService.unSale(ids);
         return R.ok();
     }
 }

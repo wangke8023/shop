@@ -73,8 +73,8 @@ public class ApiBaseAction {
      */
     public Map<String, Object> toResponsObject(int requestCode, String msg, Object data) {
         Map<String, Object> obj = new HashMap<String, Object>();
-        obj.put("errno", requestCode);
-        obj.put("errmsg", msg);
+        obj.put("code", requestCode);
+        obj.put("msg", msg);
         if (data != null)
             obj.put("data", data);
         return obj;

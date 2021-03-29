@@ -37,6 +37,7 @@ public class CommentServiceImpl implements CommentService {
         if (null != commentEntities && commentEntities.size() > 0) {
             for (CommentEntity commentEntity : commentEntities) {
                 commentEntity.setContent(Base64.decode(commentEntity.getContent()));
+	            commentEntity.setUserName(Base64.decode(commentEntity.getUserName()));
             }
         }
         return commentEntities;

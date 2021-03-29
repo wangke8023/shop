@@ -43,6 +43,17 @@
                     </Radio>
                 </Radio-group>
             </Form-item>
+            <Form-item label="用户角色" prop="role">
+                <Radio-group v-model="menu.role">
+                    <Radio label="5">
+                        <span>超级管理员</span>
+                    </Radio>
+                    <Radio label="6">
+                        <span>商户</span>
+                    </Radio>
+                    
+                </Radio-group>
+            </Form-item>
             <Form-item label="菜单名称" prop="name">
                 <i-input v-model="menu.name" placeholder="菜单名称或按钮名称"/>
             </Form-item>

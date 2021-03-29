@@ -55,7 +55,7 @@ public class SysLoginController {
     @SysLog("登录")
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-    public R login(String username, String password, String captcha) throws IOException {
+    public R login(String username, String password, String captcha,Boolean remeber) throws IOException {
       //  String kaptcha="1111";
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if(null == kaptcha){
@@ -66,10 +66,11 @@ public class SysLoginController {
         }
 
         try {
+	        remeber = true;
             Subject subject = ShiroUtils.getSubject();
             //sha256加密
             password = new Sha256Hash(password).toHex();
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password,remeber);
             subject.login(token);
         } catch (UnknownAccountException e) {
             return R.error(e.getMessage());

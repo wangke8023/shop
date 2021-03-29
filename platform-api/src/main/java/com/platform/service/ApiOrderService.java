@@ -280,7 +280,7 @@ public class ApiOrderService {
 				}
 
 				// 清空已购买的商品
-//				apiCartMapper.deleteByCart(loginUser.getUserId(), 1, 1);
+				//apiCartMapper.deleteByCart(loginUser.getUserId(), 1, 1);
 				// 返回对象
 				Map<String, OrderVo> orderInfoMap = new HashMap<String, OrderVo>();
 				orderInfoMap.put("orderInfo", orderInfo);

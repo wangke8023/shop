@@ -52,7 +52,7 @@ public interface SysMenuService {
     /**
      * 保存菜单
      */
-    void save(SysMenuEntity menu);
+    int save(SysMenuEntity menu);
 
     /**
      * 修改

@@ -73,8 +73,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 
 	@Override
-	public void save(SysMenuEntity menu) {
-		sysMenuDao.save(menu);
+	public int save(SysMenuEntity menu) {
+		return sysMenuDao.save(menu);
 	}
 
 	@Override

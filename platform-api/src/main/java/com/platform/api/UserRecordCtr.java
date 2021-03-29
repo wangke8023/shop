@@ -37,7 +37,7 @@ public class UserRecordCtr extends ApiBaseAction{
 	 /**
      * 分页获取品牌
      */
-    @ApiOperation(value = "分页获取品牌")
+    @ApiOperation(value = "分页获取品牌",httpMethod = "GET")
     @IgnoreAuth
     @RequestMapping("list")
     @ResponseBody
